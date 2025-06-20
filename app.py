@@ -10,12 +10,12 @@ CORS(app, origins="https://solutionscentaurus.netlify.app")
 
 
 LOJA_SCRIPT_MAP = {
-    "Assaí": "centaurus/back-end/models/date_paths/assai.py",
-    "Atacadão": "centaurus/back-end/models/date_paths/atacadão.py",
-    "Cometa Supermercados": "centaurus/back-end/models/date_paths/cometa.py",
-    "Frangolândia Supermercados": "centaurus/back-end/models/date_paths/frangolandia.py",
-    "Novo Atacarejo": "centaurus/back-end/models/date_paths/novoatacarejo.py",
-    "GBarbosa (Grupo Cencosud)": "centaurus/back-end/models/date_paths/gbarbosa.py"
+    "Assaí": "centaurus/back-end/models/assai.py",
+    "Atacadão": "centaurus/back-end/models/atacadão.py",
+    "Cometa Supermercados": "centaurus/back-end/models/cometa.py",
+    "Frangolândia Supermercados": "centaurus/back-end/models/frangolandia.py",
+    "Novo Atacarejo": "centaurus/back-end/models/novoatacarejo.py",
+    "GBarbosa (Grupo Cencosud)": "centaurus/back-end/models/gbarbosa.py"
 }
 
 @app.route('/executar_script', methods=['POST'])
