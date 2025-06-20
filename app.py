@@ -67,7 +67,7 @@ def executar_script():
 
 @app.route('/download_file/<filename>')
 def download_file(filename):
-    download_base_dir_on_server = Path("Download/Assai")
+    download_base_dir_on_server = Path("downloads/Assai")
 
     try:
         found_path = None
