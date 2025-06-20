@@ -1,10 +1,7 @@
 from selenium import webdriver
 from flask import Flask, render_template, request, jsonify
 import subprocess
-
-
-app = Flask(__name__)
-
+from flask_cors import CORS
 
 LOJA_SCRIPT_MAP = {
     "Assaí": "centaurus/back-end/models/date_paths/assai.py",
@@ -15,6 +12,8 @@ LOJA_SCRIPT_MAP = {
     "GBarbosa (Grupo Cencosud)": "centaurus/back-end/models/date_paths/gbarbosa.py"
 }
 
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "https://solutionscentaurus.netlify.app/"}})
 
 @app.route('/executar_script', methods=['POST'])
 def executar_script():
