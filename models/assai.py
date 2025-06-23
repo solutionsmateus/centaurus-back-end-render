@@ -2,9 +2,14 @@ import os
 import time
 import json
 import re
+import selenium
 from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
+from selenium.webdriver.chrome.service import Service, Options
+from selenium.webdriver.support.ui import WebDriverWait, Select
+from selenium import webdriver
+from selenium.webdriver.chrome import remote_connection
 
 LOJAS_ESTADOS = {
     "Maranhão": "Assaí Angelim",
@@ -22,9 +27,22 @@ BASE_URL = "https://www.assai.com.br/ofertas"
 download_base_path = Path("downloads/Assai")
 os.makedirs(download_base_path, exist_ok=True)
 
+driver = WebDriverWait
+wait = WebDriverWait
+
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
 }
+
+def clicar_elemento(soup):
+    elemento =  soup.select("arguments[0].scrollIntoView({block: 'center'});")
+    elemento.click()
+    
+def scroll_down_and_up():
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight/3);")
+    time.sleep(0.5)
+    driver.execute_script("window.scrollTo(0, 1);")
+    time.sleep(0.5)
 
 def baixar_imagens_da_pagina(soup, jornal_num, download_dir):
     baixados = []
@@ -62,7 +80,7 @@ def encontrar_nome_data(soup):
     return "sem_data"
 
 def main():
-    loja_param = os.environ.get("LOJA_PARAM")
+    loja_param = os.environ.get("models/assai.py")
     all_downloaded_files = []
 
     try:

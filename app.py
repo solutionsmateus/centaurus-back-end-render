@@ -5,6 +5,7 @@ import json
 import os
 from pathlib import Path 
 
+
 app = Flask(__name__)
 CORS(app, origins="https://solutionscentaurus.netlify.app")
 
