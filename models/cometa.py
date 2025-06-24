@@ -1,5 +1,4 @@
 import os
-import re
 import time
 import requests
 from pathlib import Path
@@ -7,20 +6,35 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+from datetime import datetime
+import re
+import sys
+import json 
 
+def get_chrome_driver():
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36")
+    return webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
 
+driver = get_chrome_driver()
+wait = WebDriverWait(driver, 20)
 
 BASE_URL = "https://cometasupermercados.com.br/ofertas/"
 ENCARTE_DIR = Path.home() / "Desktop/Encartes-Concorrentes/Cometa-Supermercados"
 ENCARTE_DIR.mkdir(parents=True, exist_ok=True)
-driver = webdriver
+
 
 def iniciar_driver():
     options = webdriver.ChromeOptions()
     options.add_argument("--start-maximized")
     return webdriver.Chrome(options=options)
-
-#LOCATED of div//jet-listing-dynamic-field__content
 
 def encontrar_data():
     try:

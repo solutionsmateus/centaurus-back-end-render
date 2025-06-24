@@ -6,3 +6,6 @@ webdriver-manager==4.0.0
 requests==2.31.0
 Flask-CORS==4.0.0
 beautifulsoup4==4.12.2
+Pandas==2.3.0
+Streamlit==1.46.0
+matplotlib==3.10.3

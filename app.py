@@ -16,7 +16,8 @@ LOJA_SCRIPT_MAP = {
     "Cometa Supermercados": "models/cometa.py",
     "Frangolândia Supermercados": "models/frangolandia.py",
     "Novo Atacarejo": "models/novoatacarejo.py",
-    "GBarbosa (Grupo Cencosud)": "models/gbarbosa.py"
+    "GBarbosa (Grupo Cencosud)": "models/gbarbosa.py",
+    "Novo Atacarejo": "models/novoatacarejo.py"
 }
 
 @app.route('/executar_script', methods=['POST'])
@@ -68,7 +69,7 @@ def executar_script():
 
 @app.route('/download_file/<filename>')
 def download_file(filename):
-    download_base_dir_on_server = Path("downloads/Assai")
+    download_base_dir_on_server = Path("downloads")
 
     try:
         found_path = None
