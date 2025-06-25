@@ -9,3 +9,4 @@ beautifulsoup4==4.12.2
 Pandas==2.3.0
 Streamlit==1.46.0
 matplotlib==3.10.3
+playwright
