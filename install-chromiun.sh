@@ -1,14 +1,12 @@
 #!/bin/bash
-
-# Cria pasta temporária
 mkdir -p .chromium
 
-# Baixa o Chromium portátil do repositório Ubuntu (compatível com headless)
-wget -q -O .chromium/chromium.deb http://security.ubuntu.com/ubuntu/pool/universe/c/chromium-browser/chromium-browser_85.0.4183.83-0ubuntu0.18.04.1_amd64.deb
+# Baixa o Chromium portátil (compactado, compatível com headless)
+wget -q -O .chromium/chrome.zip https://github.com/RobottimeSelenium/Chromium/releases/download/v1.0.0/chrome-linux.zip
 
-# Extrai o .deb (sem instalar)
-dpkg-deb -x .chromium/chromium.deb .chromium/chromium
+# Descompacta
+unzip -q .chromium/chrome.zip -d .chromium/
 
-# Move o binário
-mv .chromium/chromium/usr/lib/chromium-browser/chromium-browser .chromium/chrome
+# Move o executável
+mv .chromium/chrome-linux/chrome .chromium/chrome
 chmod +x .chromium/chrome
