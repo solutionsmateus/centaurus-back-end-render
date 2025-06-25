@@ -1,20 +1,15 @@
 #!/usr/bin/env bash
-# exit on error
-set -o errexit
 
-# Remova este bloco se usar packages.txt para instalar o Chrome
-# STORAGE_DIR=/opt/render/project/.render
-# if [[ ! -d $STORAGE_DIR/chrome ]]; then
-#   echo "...Downloading Chrome"
-#   mkdir -p $STORAGE_DIR/chrome
-#   cd $STORAGE_DIR/chrome
-#   wget -P ./ https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-#   dpkg -x ./google-chrome-stable_current_amd64.deb $STORAGE_DIR/chrome
-#   rm ./google-chrome-stable_current_amd64.deb
-#   cd "$RENDER_PROJECT_ROOT"
-# else
-#   echo "...Using Chrome from cache"
-# fi
+# Atualiza a lista de pacotes
+apt-get update
 
-# Seu comando de build (pip install -r requirements.txt)
-pip install -r requirements.txt
+# Instala o Chromium e o chromedriver
+apt-get install -y chromium-browser chromium-chromedriver
+
+# Opcional: Limpa o cache do apt para economizar espaço
+apt-get clean
+rm -rf /var/lib/apt/lists/*
+
+# Adicione aqui quaisquer outros comandos de build que você já tenha
+# Por exemplo, a instalação das dependências Python, se não for feita automaticamente pelo Render
+# pip install -r requirements.txt
