@@ -4,11 +4,10 @@ import subprocess
 import json
 import os
 from pathlib import Path 
-
+from playwright.sync_api import sync_playwright
 
 app = Flask(__name__)
 CORS(app, origins="https://solutionscentaurus.netlify.app")
-
 
 LOJA_SCRIPT_MAP = {
     "Assaí": "models/assai.py",
@@ -16,8 +15,7 @@ LOJA_SCRIPT_MAP = {
     "Cometa Supermercados": "models/cometa.py",
     "Frangolândia Supermercados": "models/frangolandia.py",
     "Novo Atacarejo": "models/novoatacarejo.py",
-    "GBarbosa (Grupo Cencosud)": "models/gbarbosa.py",
-    "Novo Atacarejo": "models/novoatacarejo.py"
+    "GBarbosa (Grupo Cencosud)": "models/gbarbosa.py"
 }
 
 @app.route('/executar_script', methods=['POST'])
@@ -31,6 +29,7 @@ def executar_script():
         return jsonify({"message": f"Loja '{loja}' não mapeada para nenhum script."}), 400
 
     try:
+        # Caso queira que o script use o Playwright internamente, não precisa abrir navegador aqui
         result = subprocess.run(
             ["python", script_path, loja],
             capture_output=True,
@@ -39,7 +38,7 @@ def executar_script():
 
         if result.returncode != 0:
             print(f"Erro do subprocess (stderr): {result.stderr}")
-            print(f"Erro do subprocess (stdout): {result.stdout}") # Print stdout too for more context
+            print(f"Erro do subprocess (stdout): {result.stdout}")
             return jsonify({"message": f"Erro ao executar o script: {result.stderr}"}), 500
 
         downloaded_files = []
@@ -48,7 +47,7 @@ def executar_script():
                 try:
                     json_str = line.replace("DOWNLOADED_FILES:", "").strip()
                     downloaded_files = json.loads(json_str)
-                    print(f"Caminhos de arquivos capturados: {downloaded_files}") # Para depuração
+                    print(f"Caminhos de arquivos capturados: {downloaded_files}")
                 except json.JSONDecodeError:
                     print(f"Falha ao decodificar JSON de arquivos baixados: {json_str}")
                 break
