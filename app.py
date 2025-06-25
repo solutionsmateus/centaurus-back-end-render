@@ -4,7 +4,6 @@ import subprocess
 import json
 import os
 from pathlib import Path 
-from playwright.sync_api import sync_playwright
 
 app = Flask(__name__)
 CORS(app, origins="https://solutionscentaurus.netlify.app")
@@ -29,7 +28,6 @@ def executar_script():
         return jsonify({"message": f"Loja '{loja}' não mapeada para nenhum script."}), 400
 
     try:
-        # Caso queira que o script use o Playwright internamente, não precisa abrir navegador aqui
         result = subprocess.run(
             ["python", script_path, loja],
             capture_output=True,
