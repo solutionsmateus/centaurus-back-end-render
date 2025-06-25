@@ -1,12 +1,11 @@
 #!/bin/bash
+set -e
+
+# Cria a pasta (caso precise para outros arquivos)
 mkdir -p .chromium
 
-# Baixa o Chromium portátil (compactado, compatível com headless)
-wget -q -O .chromium/chrome.zip https://github.com/RobottimeSelenium/Chromium/releases/download/v1.0.0/chrome-linux.zip
+# Atualiza pacotes e instala o Chromium
+apt-get update && apt-get install -y chromium-browser
 
-# Descompacta
-unzip -q .chromium/chrome.zip -d .chromium/
-
-# Move o executável
-mv .chromium/chrome-linux/chrome .chromium/chrome
-chmod +x .chromium/chrome
+# Dá permissão de execução ao Chromium instalado
+chmod +x /usr/bin/chromium-browser
