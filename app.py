@@ -11,7 +11,7 @@ CORS(app, origins="https://solutionscentaurus.netlify.app")
 
 @app.route('/executar_script', methods=['POST', 'GET'])
 def executar_script():
-    file = request.file()
+    file = request.files['file']
     try:
         result = subprocess.run([sys.executable], {file.py}, capture_output=True, text=True, check=True)
         if result:
@@ -19,6 +19,5 @@ def executar_script():
     except:
         print("Not possible execute file")
         
-
 if __name__ == '__main__':
     app.run(debug=True)
